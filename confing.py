@@ -35,5 +35,9 @@ def ID():
         #conf['ding_talk_body'] = cf.get("texttalk", "body")
         #conf['talk_sleep_time'] = int(cf.get("texttalk", "sleep_time"))
         return conf
-if __name__=='__main__':
-    print(ID())
+def updata_conf(conf:dict[str,str],body:str):
+    cf = ConfigParser()
+    id_path = os.path.join(os.getcwd(), "ID.ini")
+    cf.read(id_path)
+    cf.set(conf[0],conf[1],body)
+    cf.write(open(id_path, "w"))
