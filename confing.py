@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 import os
+import PySimpleGUI as sg
 import sys
 def ID():
     conf={}
@@ -23,8 +24,10 @@ def ID():
         cf.set("texttalk","sleep_time","")
         cf.set("path","phone","")
         cf.set("path","password","")
+        cf.set("path", "version", "")
         cf.write(open(id_path, "a"))
-        print("配置文件成功释放，请填写ID.ini,并重启程序")
+        print("配置文件成功释放")
+        sg.popup("你的配置文件被吃了？？，已重新释放配置文件，请重启程序")
         sys.exit()
     else:
         cf.read(id_path)  # 读取配置文件
@@ -32,8 +35,7 @@ def ID():
         conf['secret'] = cf.get("dingtalk", "secret")
         conf["phone"]=cf.get("path","phone")
         conf["password"]=cf.get("path","password")
-        #conf['ding_talk_body'] = cf.get("texttalk", "body")
-        #conf['talk_sleep_time'] = int(cf.get("texttalk", "sleep_time"))
+        conf["version"]=cf.get("path","version")
         return conf
 def updata_conf(conf:dict[str,str],body:str):
     cf = ConfigParser()
